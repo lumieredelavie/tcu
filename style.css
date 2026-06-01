@@ -1,0 +1,484 @@
+/* IMPORT FONT MODERN 'INTER' & 'MONTSERRAT' */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@400;600;700&display=swap');
+
+:root {
+    --tcu-emerald: #008080;                   /* Hijau Teal cerah khas Tzu Chi */
+    --tcu-emerald-dark: #006666;              /* Hijau Teal tua untuk teks/hover */
+    --tcu-gold: #D4AF37;                     /* Aksen Emas tipis */
+    --tcu-white: #FFFFFF;
+    --tcu-bg-light: #F8FAFA;                /* Latar belakang web dominan putih abu-abu */
+    --text-primary: #1A1A1A;                /* Teks utama hitam pekat */
+    --text-muted: #666666;                   /* Teks keterangan abu-abu */
+    --border-light: rgba(0, 128, 128, 0.1);  /* Bingkai teal sangat tipis */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', "PingFang TC", "Microsoft JhengHei", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.8;
+    background-color: var(--tcu-bg-light); /* Latar belakang dominan putih */
+    overflow-x: hidden;
+}
+
+/* FOTO BACKGROUND BERWARNA (KAMPUS BLUR) DENGAN OVERLAY PUTIH */
+.bg-color-photo-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* Menggunakan foto estetik pemandangan kampus Tzu Chi yang BERWARNA */
+    background-image: url('https://images.unsplash.com/photo-1541339907198-e08756defefe?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    filter: blur(15px) brightness(105%); /* Efek blur tinggi + cerah */
+    z-index: -2;
+    transform: scale(1.05); /* Menghindari pixel putih di pinggiran layar */
+}
+
+/* Tambahan lapisan putih semi-transparan untuk membuat web dominan putih */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.85); /* Lapisan putih di atas foto blur */
+    z-index: -1;
+}
+
+/* HEADER PUTIH MINIMALIS DENGAN LOGO FOTO */
+.tcu-top-bar {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    padding: 12px 30px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.tcu-top-container {
+    width: 100%;
+    max-width: 100%;        /* Menggunakan lebar penuh layar */
+    margin: 0;              /* Menghilangkan margin auto agar tidak ke tengah */
+    padding: 0 10px;        /* Jarak tipis di sisi kiri dan kanan */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Logo di kiri mentok, tombol bahasa di kanan mentok */
+}
+
+/* AREA LOGO (UKURAN 4X LEBIH BESAR & DIATUR SEBAGAI LINK) */
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;              /* Jarak antara logo dan teks sedikit diperlebar */
+    text-decoration: none;   /* Menghilangkan garis bawah default tag <a> */
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.logo-wrapper:hover {
+    opacity: 0.85;           /* Efek visual halus saat disorot */
+}
+
+/* Ukuran foto logo dibuat 4x lebih besar (144px) */
+.tcu-logo-photo {
+    width: 400px;
+    height: 144px;
+    object-fit: contain;     /* Memastikan foto logo asli utuh dan tidak gepeng */
+}
+
+.logo-photo-placeholder {
+    font-size: 14px;
+    color: var(--tcu-emerald);
+    background: #E0F2F1;
+    padding: 20px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.logo-area {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;         /* Ukuran teks Mandarin diperbesar agar seimbang */
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--tcu-emerald-dark);
+}
+
+.logo-sub {
+    font-size: 12px;         /* Ukuran teks Inggris diperbesar agar seimbang */
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* TOMBOL NAVIGASI MENU UTAMA (WHITE STYLE - SEIMBANG DENGAN LOGO BESAR) */
+.top-links {
+    display: flex;
+    gap: 16px;                  /* Memperlebar jarak antar tombol */
+}
+
+.nav-btn-white {
+    background: transparent;
+    color: var(--tcu-emerald-dark);
+    border: 2px solid rgba(0, 128, 128, 0.4); /* Garis bingkai dipertebal (2px) */
+    padding: 12px 28px;         /* Padding diperbesar agar tombol lebih kokoh */
+    border-radius: 30px;        /* Sudut lengkungan disesuaikan dengan ukuran baru */
+    cursor: pointer;
+    font-size: 16px;            /* Ukuran teks diperbesar dari 13px ke 16px */
+    font-weight: 700;           /* Teks dibuat lebih tebal (Bold) */
+    transition: all 0.3s ease;
+}
+
+.nav-btn-white:hover, .nav-btn-white.active {
+    background-color: var(--tcu-emerald);
+    color: var(--tcu-white);
+    border-color: var(--tcu-emerald);
+    box-shadow: 0 6px 16px rgba(0, 128, 128, 0.25); /* Efek bayangan yang lebih tegas saat aktif */
+    transform: translateY(-2px); /* Efek sedikit terangkat saat disorot */
+}
+
+/* CONTAINER KONTEN UTAMA */
+.main-container {
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 65vh;
+}
+
+/* BANNER JUDUL MINIMALIS (DOMINAN PUTIH) */
+.page-title-box {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-top: 4px solid var(--tcu-emerald); /* Aksen hijau di atas */
+}
+
+.page-title-box h2 {
+    color: var(--tcu-emerald-dark);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.title-divider {
+    width: 50px;
+    height: 3px;
+    background-color: var(--tcu-emerald);
+    margin: 10px auto;
+    border-radius: 2px;
+}
+
+.page-title-box h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-muted);
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.page-title-box p {
+    color: #888888;
+    font-size: 12.5px;
+    font-style: italic;
+}
+
+/* CARD PILIHAN PORTAL UTAMA (WHITE STYLE DENGAN WARNA PENTING) */
+.selector-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 55px 35px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+    border: 1px solid #EAEAEA;
+    margin-top: 20px;
+}
+
+.selector-instruction {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 35px;
+    letter-spacing: 1.5px;
+}
+
+.selector-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.portal-btn {
+    padding: 16px 35px;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    letter-spacing: 0.5px;
+}
+
+/* Tombol Mandarin (Hijau Teal) */
+.portal-btn.teal-btn {
+    background-color: var(--tcu-emerald);
+    color: var(--tcu-white);
+    box-shadow: 0 6px 18px rgba(0, 128, 128, 0.25);
+}
+
+/* Tombol English (Outline Hijau) */
+.portal-btn.white-btn {
+    background-color: transparent;
+    color: var(--tcu-emerald);
+    border: 1px solid var(--tcu-emerald);
+}
+
+.portal-btn:hover {
+    transform: translateY(-3px);
+    background-color: var(--tcu-emerald-dark);
+    color: var(--tcu-white);
+    border-color: var(--tcu-emerald-dark);
+    box-shadow: 0 8px 25px rgba(0, 128, 128, 0.3);
+}
+
+/* LOGIKA SEMBUNYI KONTEN */
+.lang-content-hidden {
+    display: none !important;
+}
+
+/* KARTU PANDUAN UTAMA (WHITE STYLE MINIMALIS) */
+.guide-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 45px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.05);
+    border: 1px solid #EAEAEA;
+    margin-bottom: 35px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.lang-header {
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--tcu-emerald);
+    padding-bottom: 10px;
+    margin-bottom: 35px;
+    letter-spacing: 0.5px;
+}
+
+/* Perbedaan warna header bahasa agar elegan */
+.zh-teal-text { color: var(--tcu-emerald-dark); }
+.en-teal-text { color: #004D40; } /* Hijau lumut cerah */
+
+/* ITEM SETIAP STEP */
+.step-item {
+    margin-bottom: 45px;
+}
+
+.step-item:last-child {
+    margin-bottom: 0;
+}
+
+.step-label {
+    display: inline-block;
+    background-color: var(--tcu-emerald);
+    color: var(--tcu-white);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.step-text {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.step-subtext {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    padding-left: 2px;
+}
+
+/* WADAH FOTO/GAMBAR TUTORIAL */
+.img-container {
+    margin-top: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #EEEEEE;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.img-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Placeholder saat gambar gagal dimuat */
+.img-placeholder {
+    display: none;
+    font-size: 13.5px;
+    color: var(--tcu-emerald);
+    background: #E0F2F1;
+    padding: 35px 15px;
+    border-radius: 6px;
+    border: 1px dashed rgba(0, 128, 128, 0.3);
+    font-weight: 500;
+}
+
+/* MODIFIKASI KOTAK PENGINGAT MENJADI WARNA MERAH */
+.alert-box {
+    background-color: #FFEBEE; /* Latar belakang merah muda sangat muda agar teks mudah dibaca */
+    border-left: 4px solid #D32F2F; /* Garis pembatas kiri berwarna merah tegas */
+    color: #C62828; /* Warna teks utama menjadi merah tua */
+}
+
+/* Memastikan teks tebal (strong) dan kode (code) di dalamnya juga ikut berwarna merah serasi */
+.alert-box strong {
+    color: #B71C1C; 
+}
+
+.alert-box code {
+    background-color: rgba(211, 47, 47, 0.08);
+    color: #B71C1C;
+    border: 1px solid rgba(211, 47, 47, 0.2);
+}
+
+/* SPEEDTEST PANEL (WHITE STYLE) */
+.speedtest-box-white {
+    margin-top: 45px;
+    text-align: center;
+    font-size: 14px;
+    background: rgba(0, 128, 128, 0.05);
+    border: 1px solid rgba(0, 128, 128, 0.15);
+    padding: 18px;
+    border-radius: 8px;
+    color: var(--tcu-emerald-dark);
+    font-weight: 500;
+}
+
+.web-link-teal {
+    color: var(--tcu-emerald);
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 1.5px solid var(--tcu-emerald);
+}
+
+.web-link-teal:hover {
+    color: var(--tcu-emerald-dark);
+    border-bottom-color: var(--tcu-emerald-dark);
+}
+
+/* FUNGSI BACK TO HOME BUTTON (WHITE STYLE TEAL) */
+.back-home-wrapper {
+    margin-top: 45px;
+    display: flex;
+    justify-content: center;
+    border-top: 1px dashed rgba(0, 0, 0, 0.08);
+    padding-top: 35px;
+}
+
+.back-home-btn {
+    background-color: var(--tcu-emerald);
+    color: var(--tcu-white);
+    border: none;
+    padding: 12px 30px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 20px rgba(0, 128, 128, 0.2);
+    transition: all 0.3s ease;
+}
+
+.back-home-btn:hover {
+    background-color: var(--tcu-emerald-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 128, 128, 0.25);
+}
+
+/* FOOTER RESMI (WHITE STYLE) */
+.tcu-footer-white {
+    background-color: #FFFFFF;
+    color: var(--text-muted);
+    padding: 40px 20px;
+    font-size: 12.5px;
+    border-top: 1px solid #EEEEEE;
+    border-top: 5px solid var(--tcu-emerald); /* Aksen hijau tebal di bawah */
+}
+
+.footer-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+@media (min-width: 600px) {
+    .footer-container {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+.footer-info p {
+    margin-bottom: 6px;
+}
+
+.footer-info strong {
+    color: var(--tcu-emerald-dark);
+    font-size: 14.5px;
+}
+
+.footer-copy {
+    text-align: right;
+    align-self: end;
+    color: #999999;
+}
+
+@media (max-width: 600px) {
+    .footer-copy {
+        text-align: left;
+    }
+}
