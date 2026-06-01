@@ -1,49 +1,55 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>慈濟大學校園無線網路連線指南 | TCU Wi-Fi Connection Guide</title>
+    <title>TCU Wi-Fi Connection Guide | 慈濟大學校園無線網路連線指南</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Light Mode Variables */
+            /* PERFECT LIGHT MODE */
             --primary: #008080;
             --primary-dark: #004d4d;
-            --primary-light: #e6f2f2;
-            --accent: #00eaff;
-            --bg-global: #f4f7f6;
-            --bg-card: rgba(255, 255, 255, 0.85);
-            --bg-blur: blur(16px);
-            --text-main: #1e293b;
-            --text-muted: #64748b;
+            --primary-light: #f0fdfa;
+            --accent: #00b3b3;
+            --bg-global: #f1f5f9; 
+            --bg-card: #ffffff;
+            --bg-blur: blur(20px);
+            --text-main: #0f172a;
+            --text-muted: #475569;
             --border-color: rgba(0, 128, 128, 0.15);
             --card-shadow: 0 20px 40px -15px rgba(0, 80, 80, 0.08);
             --alert-bg: #fffbeb;
             --alert-text: #78350f;
             --alert-border: #f59e0b;
-            --hero-overlay: linear-gradient(to bottom, rgba(5, 11, 17, 0.7), rgba(5, 11, 17, 0.9));
+            
+            --hero-overlay: linear-gradient(135deg, rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.65));
+            --hero-text: #ffffff;
+            --hero-sub: #e2e8f0;
         }
 
         [data-theme="dark"] {
-            /* Dark Mode Variables */
+            /* DARK MODE */
             --primary: #00e5ff;
             --primary-dark: #00b3cc;
-            --primary-light: rgba(0, 229, 255, 0.1);
+            --primary-light: rgba(0, 229, 255, 0.08);
             --accent: #00ffcc;
             --bg-global: #050b11;
-            --bg-card: rgba(10, 25, 41, 0.7);
+            --bg-card: #0a1929;
             --bg-blur: blur(20px);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: rgba(0, 229, 255, 0.2);
-            --card-shadow: 0 25px 50px -12px rgba(0, 229, 255, 0.15);
+            --card-shadow: 0 25px 50px -12px rgba(0, 229, 255, 0.25);
             --alert-bg: rgba(245, 158, 11, 0.1);
             --alert-text: #fde047;
             --alert-border: #d97706;
-            --hero-overlay: linear-gradient(to bottom, rgba(5, 11, 17, 0.8), rgba(5, 11, 17, 0.95));
+            
+            --hero-overlay: linear-gradient(135deg, rgba(5, 11, 17, 0.75), rgba(10, 25, 41, 0.85));
+            --hero-text: #ffffff;
+            --hero-sub: #cbd5e1;
         }
 
         * {
@@ -52,8 +58,7 @@
             padding: 0;
             transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
                         border-color 0.4s ease, 
-                        box-shadow 0.4s ease,
-                        transform 0.2s ease;
+                        box-shadow 0.4s ease;
         }
 
         body {
@@ -68,204 +73,166 @@
             display: none !important;
         }
 
-        /* Sticky Glassmorphism Header */
+        /* Fixed Header */
         .tcu-top-bar {
-            background: rgba(5, 11, 17, 0.3);
+            background: rgba(255, 255, 255, 0.95) !important;
             backdrop-filter: var(--bg-blur);
             -webkit-backdrop-filter: var(--bg-blur);
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid rgba(0, 128, 128, 0.15) !important;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
-            padding: 16px 0;
+            padding: 14px 0;
+        }
+
+        [data-theme="dark"] .tcu-top-bar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border-bottom: 1px solid rgba(0, 128, 128, 0.15) !important;
         }
 
         .tcu-top-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            width: 90%;
-            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
         }
 
         .logo-wrapper img {
-            height: 46px;
+            height: 65px;
+            width: auto;
             object-fit: contain;
-        }
-
-        .controls-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .top-links {
-            display: flex;
-            gap: 8px;
-        }
-
-        .nav-btn-white {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: #ffffff; /* Selalu putih di header atas agar kontras dengan hero */
-            padding: 8px 18px;
-            font-weight: 600;
-            cursor: pointer;
-            border-radius: 30px;
-            font-size: 13px;
-        }
-
-        [data-theme="light"] .nav-btn-white {
-            color: var(--text-main);
-        }
-
-        .nav-btn-white.active {
-            background: var(--primary);
-            color: #ffffff !important;
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
         }
 
         .theme-toggle-btn {
             background: transparent;
-            border: 1px solid var(--border-color);
-            color: #ffffff;
-            width: 38px;
-            height: 38px;
+            border: 1px solid rgba(0, 128, 128, 0.3);
+            color: #0f172a !important; 
+            width: 42px; height: 42px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
-        [data-theme="light"] .theme-toggle-btn {
-            color: var(--text-main);
-        }
 
-        /* Opening / Hero Page Section */
+        /* ─── HERO SECTION BACKGROUND ─── */
         .hero-section {
-            position: relative;
             height: 100vh;
-            min-height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-image: var(--hero-overlay), url('background.png'); /* Menggunakan background.png sebagai foto sekolah */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-image: var(--hero-overlay), url('background.jpg');
+            background-size: cover;          
+            background-position: center;      
+            background-repeat: no-repeat;     
+            background-attachment: fixed;     
             text-align: center;
             padding: 0 20px;
         }
 
-        .hero-content {
-            max-width: 800px;
+        .hero-content { 
+            width: 100%;
+            max-width: 800px; 
+            animation: fadeInHero 0.8s ease-out;
             z-index: 2;
         }
 
+        @keyframes fadeInHero {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .hero-title {
-            font-size: 42px;
+            font-size: 48px;
             font-weight: 800;
-            color: #ffffff;
-            line-height: 1.3;
-            letter-spacing: -1px;
+            color: var(--hero-text) !important;
+            line-height: 1.4;
             margin-bottom: 15px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            letter-spacing: -0.5px;
         }
 
         .hero-title span {
+            background: linear-gradient(120deg, #22d3ee, #00f0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #00f0ff;
+            display: inline-block;
+        }
+
+        [data-theme="dark"] .hero-title span {
             background: linear-gradient(120deg, #00e5ff, #00ffcc);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-subtitle {
-            color: #cbd5e1;
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 40px;
+            color: var(--hero-sub) !important;
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 45px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            opacity: 0.95;
         }
 
-        /* Selector Portal Card inside Hero */
-        .selector-card {
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 35px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-            max-width: 550px;
-            margin: 0 auto;
-        }
-
-        .selector-instruction {
-            font-weight: 800;
-            font-size: 11px;
-            letter-spacing: 3px;
-            color: #00e5ff;
-            margin-bottom: 20px;
-        }
-
-        .selector-buttons {
+        .direct-buttons-layout {
             display: flex;
-            gap: 16px;
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            justify-content: center;
         }
 
         .portal-btn {
             flex: 1;
-            padding: 16px 24px;
-            border-radius: 14px;
+            padding: 18px 28px;
+            border-radius: 16px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            font-size: 16px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .teal-btn {
-            background: linear-gradient(135deg, #008080, #00b3b3);
+        /* PERBAIKAN: Kedua tombol disamakan menggunakan gaya Glass Effect premium */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             color: #ffffff;
-            border: none;
-            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .teal-btn:hover {
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 229, 255, 0.6);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .white-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-        }
-
-        .white-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
-            border-color: #00e5ff;
-        }
-
-        /* Content Section Layout */
+        /* MAIN CONTAINER */
         .main-container {
-            max-width: 1000px;
-            width: 90%;
+            max-width: 100%; 
+            width: calc(100% - 32px); 
             margin: 0 auto;
-            padding: 80px 0;
+            padding: 40px 0;
         }
 
         .guide-card {
             background: var(--bg-card);
-            backdrop-filter: var(--bg-blur);
-            -webkit-backdrop-filter: var(--bg-blur);
-            padding: 45px;
-            border-radius: 24px;
+            padding: 40px;
+            border-radius: 16px; 
             box-shadow: var(--card-shadow);
             border: 1px solid var(--border-color);
+            width: 100%;
         }
 
         .lang-header {
@@ -274,7 +241,6 @@
             margin-bottom: 35px;
             padding-bottom: 14px;
             border-bottom: 2px solid var(--border-color);
-            letter-spacing: -0.5px;
         }
 
         .step-item {
@@ -282,132 +248,71 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        .step-item:last-of-type {
-            border-bottom: none;
-        }
+        .step-item:last-of-type { border-bottom: none; }
 
         .step-label {
             background: linear-gradient(90deg, var(--primary-dark), var(--primary));
             color: #ffffff;
-            padding: 6px 16px;
-            font-size: 12px;
+            padding: 10px 24px;       
+            font-size: 14px;          
             font-weight: 800;
             border-radius: 30px;
             display: inline-block;
-            margin-bottom: 18px;
-            letter-spacing: 1px;
+            margin-bottom: 20px;
+            letter-spacing: 1.5px;
+            box-shadow: 0 4px 12px rgba(0, 128, 128, 0.15);
         }
 
-        .step-text {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 12px;
-        }
+        .step-text { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+        .step-subtext { color: var(--text-muted); font-size: 15px; margin-bottom: 18px; }
+        .alert-box { background: var(--alert-bg); border-left: 4px solid var(--alert-border); padding: 20px; margin: 25px 0; border-radius: 12px; color: var(--alert-text); font-size: 15px; }
 
-        .step-subtext {
-            color: var(--text-muted);
-            font-size: 15px;
-            margin-bottom: 18px;
-        }
-
-        /* Alert Box */
-        .alert-box {
-            background: var(--alert-bg);
-            border-left: 4px solid var(--alert-border);
-            padding: 20px;
-            margin: 25px 0;
-            border-radius: 12px;
-            color: var(--alert-text);
-            font-size: 15px;
-        }
-
-        /* Image Display Layout */
         .img-container {
-            background: rgba(0, 0, 0, 0.02);
-            padding: 16px;
-            text-align: center;
-            border: 1px dashed var(--border-color);
+            width: 100%;
             margin-top: 25px;
-            border-radius: 16px;
-        }
-
-        [data-theme="dark"] .img-container {
-            background: rgba(255, 255, 255, 0.02);
+            display: flex;
+            justify-content: center; 
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .img-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            width: 100%;
+            height: auto;       
+            display: block;
+            object-fit: contain; 
         }
 
-        .img-placeholder {
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 600;
-            padding: 20px 0;
-        }
-
-        /* Speedtest component */
-        .speedtest-box-white {
-            background: var(--primary-light);
+        .img-container.portrait-mode img {
+            width: 100%;
+            max-width: 520px;    
+            height: auto;        
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
             border: 1px solid var(--border-color);
-            padding: 24px;
-            border-radius: 16px;
-            margin: 45px 0 25px 0;
-            text-align: center;
-            font-weight: 600;
+            border-radius: 12px;
         }
 
-        .web-link-teal {
-            color: var(--primary);
-            font-weight: 700;
-            text-decoration: none;
-            border-bottom: 2px solid var(--primary);
-        }
+        .speedtest-box-white { background: var(--primary-light); border: 1px solid var(--border-color); padding: 24px; margin: 45px 0 25px 0; border-radius: 16px; text-align: center; font-weight: 600; }
+        .web-link-teal { color: var(--primary); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--primary); }
+        .back-home-btn { background: var(--text-main); color: var(--bg-global); border: none; padding: 14px 32px; font-size: 15px; font-weight: 700; border-radius: 30px; cursor: pointer; margin-top: 30px; }
 
-        .back-home-btn {
-            background: var(--text-main);
-            color: var(--bg-global);
-            border: none;
-            padding: 14px 32px;
-            font-size: 15px;
-            font-weight: 700;
-            border-radius: 30px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 30px;
-        }
-
-        /* Footer Layout */
-        .tcu-footer-white {
-            background: var(--bg-card);
-            backdrop-filter: var(--bg-blur);
-            -webkit-backdrop-filter: var(--bg-blur);
-            border-top: 1px solid var(--border-color);
-            padding: 60px 20px;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            width: 90%;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
+        /* FOOTER */
+        .tcu-footer-white { background: var(--bg-card); backdrop-filter: var(--bg-blur); border-top: 1px solid var(--border-color); padding: 50px 0; font-size: 14px; color: var(--text-muted); }
+        .footer-container { max-width: 100%; width: calc(100% - 32px); margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+        .footer-info { text-align: left; }
+        .footer-info p { margin-bottom: 4px; }
+        .footer-copy { text-align: center; font-weight: 600; width: 100%; padding-top: 12px; border-top: 1px solid rgba(0, 128, 128, 0.05); }
 
         @media (max-width: 768px) {
-            .hero-title { font-size: 30px; }
-            .hero-subtitle { font-size: 15px; }
-            .selector-buttons { flex-direction: column; }
-            .footer-container { flex-direction: column; gap: 30px; align-items: center; text-align: center; }
+            .hero-title { font-size: 32px; }
+            .direct-buttons-layout { flex-direction: column; gap: 14px; max-width: 280px; }
+            .tcu-top-container { padding: 10px 0; }
+            .main-container { width: calc(100% - 16px); padding: 20px 0; } 
+            .guide-card { padding: 20px; }
+            .footer-info { text-align: center; }
+            .img-container.portrait-mode img { max-width: 100%; } 
+            .step-label { padding: 8px 18px; font-size: 13px; }
+            .hero-section { background-attachment: scroll; } 
         }
     </style>
 </head>
@@ -418,14 +323,9 @@
             <a href="https://www.tcu.edu.tw" target="_blank" class="logo-wrapper">
                 <img src="tculogo.png" alt="TCU Official Logo">
             </a>
-            
             <div class="controls-area">
-                <div class="top-links">
-                    <button onclick="switchLanguage('zh')" id="btn-nav-zh" class="nav-btn-white">中文版</button>
-                    <button onclick="switchLanguage('en')" id="btn-nav-en" class="nav-btn-white">English</button>
-                </div>
-                <button onclick="toggleTheme()" class="theme-toggle-btn" id="theme-toggle">
-                    <svg id="theme-icon-sun" class="lang-content-hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line></svg>
+                <button onclick="toggleTheme()" class="theme-toggle-btn" id="theme-toggle" title="Toggle Anti-Mode">
+                    <svg id="theme-icon-sun" class="lang-content-hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="14.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line></svg>
                     <svg id="theme-icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </button>
             </div>
@@ -435,14 +335,11 @@
     <section class="hero-section">
         <div class="hero-content">
             <h1 class="hero-title">校園無線網路連線指南<br><span>Wi-Fi Connection Guide</span></h1>
-            <p class="hero-subtitle">慈濟大學電算中心 • Terhubung Mulus di Seluruh Area Kampus</p>
+            <p class="hero-subtitle">慈濟大學電算中心 • 全校區無縫智慧連線</p>
             
-            <div class="selector-card">
-                <p class="selector-instruction">SELECT PORTAL LANJUTKAN</p>
-                <div class="selector-buttons">
-                    <button class="portal-btn teal-btn" onclick="switchLanguage('zh')">臺灣中文版</button>
-                    <button class="portal-btn white-btn" onclick="switchLanguage('en')">English Version</button>
-                </div>
+            <div class="direct-buttons-layout">
+                <button class="portal-btn glass-btn" onclick="switchLanguage('zh')">臺灣中文版</button>
+                <button class="portal-btn glass-btn" onclick="switchLanguage('en')">English Version</button>
             </div>
         </div>
     </section>
@@ -450,14 +347,13 @@
     <div class="main-container" id="guide-section" style="display: none;">
         
         <div id="zh-content" class="guide-card lang-content-hidden">
-            <div class="lang-header" style="color: var(--primary);">中文版</div>
+            <div class="lang-header" style="color: #008080;">中文版</div>
             
             <div class="step-item">
                 <span class="step-label">STEP 01</span>
                 <div class="step-text">登入慈濟大學 「學生資訊系統」，並點選 「電算中心」</div>
                 <div class="img-container">
-                    <img src="image1.png" alt="[Image 1]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 點選「電算中心」截圖</div>
+                    <img src="image1.png" alt="點選電算中心示意圖">
                 </div>
             </div>
 
@@ -465,8 +361,7 @@
                 <span class="step-label">STEP 02</span>
                 <div class="step-text">點選 「WiFi & VPN 密碼管理」</div>
                 <div class="img-container">
-                    <img src="image2.png" alt="[Image 2]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 點選「WiFi & VPN 密碼管理」截圖</div>
+                    <img src="image2.png" alt="點選無線網路與密碼管理示意圖">
                 </div>
             </div>
 
@@ -474,40 +369,36 @@
                 <span class="step-label">STEP 03</span>
                 <div class="step-text">記下您的 帳號 與 密碼</div>
                 <div class="alert-box">
-                    <strong>💡 重要提醒：</strong>輸入 Wi-Fi 認證帳號時，只需填寫 <code>@</code> 前方的數字或字母（例如：帳號為 114116106@rad.tcu.edu.tw，請僅輸入 <strong>114116106</strong>）。
+                    <strong>💡 重要通知：</strong> 輸入 Wi-Fi 帳號認證時，請僅輸入 <code>@</code> 符號之前的字元（例如：若完整帳號為 114116106@rad.tcu.edu.tw，請只輸入 <strong>114116106</strong> 即可）。
                 </div>
                 <div class="img-container">
-                    <img src="image3.png" alt="[Image 3]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 記下帳密資訊截圖</div>
+                    <img src="image3.png" alt="記下帳號密碼認證資訊示意圖">
                 </div>
             </div>
 
             <div class="step-item">
                 <span class="step-label">STEP 04</span>
                 <div class="step-text">開啟裝置的 Wi-Fi 設定，選擇 「TCU」</div>
-                <div class="img-container">
-                    <img src="image4.png" alt="[Image 4]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 選擇「TCU」網路截圖</div>
+                <div class="img-container portrait-mode">
+                    <img src="image4.png" alt="選擇 TCU 校園網域連線示意圖">
                 </div>
             </div>
 
             <div class="step-item">
                 <span class="step-label">STEP 05</span>
                 <div class="step-text">輸入帳密並點擊 「登入」</div>
-                <p class="step-subtext">通常連線後會直接彈出登入視窗，此時可直接輸入您的帳號與密碼。</p>
+                <p class="step-subtext">通常系統會自動彈出入口網站驗證視窗以供輸入憑證。</p>
                 <div class="img-container">
-                    <img src="image5.png" alt="[Image 5]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 彈出視窗登入認證截圖</div>
+                    <img src="image5.png" alt="入口網站登入與身分認證畫面">
                 </div>
             </div>
 
             <div class="step-item">
                 <span class="step-label">STEP 06</span>
-                <div class="step-text">如果沒有彈出視窗：</div>
-                <p class="step-subtext">則必須點選 「開啟瀏覽器並連線」，以帶出認證頁面。</p>
-                <div class="img-container">
-                    <img src="image6.png" alt="[Image 6]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 手動開啟瀏覽器認證截圖</div>
+                <div class="step-text">如果沒有自動彈出驗證視窗：</div>
+                <p class="step-subtext">請點選「開啟瀏覽器並連線」以手動觸發網路登入控制面板網頁。</p>
+                <div class="img-container portrait-mode">
+                    <img src="image6.png" alt="手動開啟網頁瀏覽器驗證畫面">
                 </div>
             </div>
 
@@ -515,27 +406,25 @@
                 <span class="step-label">STEP 07</span>
                 <div class="step-text">當網頁自動跳轉並顯示 「慈濟大學首頁」 時，即代表已成功連線！</div>
                 <div class="img-container">
-                    <img src="image7.png" alt="[Image 7]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 連線成功畫面截圖</div>
+                    <img src="image7.png" alt="連線成功自動跳轉首頁畫面">
                 </div>
             </div>
 
             <div class="speedtest-box-white">
-                <p>📢 如欲確認網路速度，可至 <a class="web-link-teal" href="https://www.speedtest.net/zh-Hant" target="_blank">Speedtest 網站</a> 測試。</p>
+                <p>📢 若要測試您目前的網路連線速度與效能，歡迎前往官方 <a class="web-link-teal" href="https://www.speedtest.net/" target="_blank">Speedtest 測速網站</a>。</p>
             </div>
 
-            <center><button class="back-home-btn" onclick="goHome()">返回上方 / Back to Top</button></center>
+            <center><button class="back-home-btn" onclick="goHome()">返回頂部</button></center>
         </div>
 
         <div id="en-content" class="guide-card lang-content-hidden">
-            <div class="lang-header" style="color: var(--primary);">English Version</div>
+            <div class="lang-header" style="color: #008080;">English Version</div>
             
             <div class="step-item">
                 <span class="step-label">STEP 01</span>
                 <div class="step-text">Log in to TCU Student Information System and Go to "Computer Center"</div>
                 <div class="img-container">
-                    <img src="imageing1.png" alt="[Image 1]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 Click "Computer Center" Screenshot</div>
+                    <img src="imageing1.png" alt="Click Computer Center">
                 </div>
             </div>
 
@@ -543,8 +432,7 @@
                 <span class="step-label">STEP 02</span>
                 <div class="step-text">Go to "WiFi & VPN Password Management"</div>
                 <div class="img-container">
-                    <img src="imageing2.png" alt="[Image 2]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 Click "WiFi & VPN Password Management" Screenshot</div>
+                    <img src="imageing2.png" alt="Click WiFi & VPN Password Management">
                 </div>
             </div>
 
@@ -555,17 +443,15 @@
                     <strong>💡 Notice:</strong> Only use the credentials before the <code>@</code> sign. Example: If account is 114116106@rad.tcu.edu.tw, enter <strong>114116106</strong>.
                 </div>
                 <div class="img-container">
-                    <img src="image3.png" alt="[Image 3]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 Save credentials Screenshot</div>
+                    <img src="image3.png" alt="Save credentials">
                 </div>
             </div>
 
             <div class="step-item">
                 <span class="step-label">STEP 04</span>
                 <div class="step-text">Connect to "TCU" Wi-Fi network</div>
-                <div class="img-container">
-                    <img src="image4.png" alt="[Image 4]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 Select "TCU" Wi-Fi Screenshot</div>
+                <div class="img-container portrait-mode">
+                    <img src="image4.png" alt="Select TCU Wi-Fi">
                 </div>
             </div>
 
@@ -573,8 +459,7 @@
                 <span class="step-label">STEP 05</span>
                 <div class="step-text">Enter username & password on pop-up screen</div>
                 <div class="img-container">
-                    <img src="image5.png" alt="[Image 5]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 Login authentication Screenshot</div>
+                    <img src="image5.png" alt="Login authentication">
                 </div>
             </div>
 
@@ -582,9 +467,8 @@
                 <span class="step-label">STEP 06</span>
                 <div class="step-text">If pop-up does not appear:</div>
                 <p class="step-subtext">Click "Open browser and connect" to trigger page portal.</p>
-                <div class="img-container">
-                    <img src="image6.png" alt="[Image 6]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 Manually open browser Screenshot</div>
+                <div class="img-container portrait-mode">
+                    <img src="image6.png" alt="Manually open browser">
                 </div>
             </div>
 
@@ -592,16 +476,15 @@
                 <span class="step-label">STEP 07</span>
                 <div class="step-text">Connection Successful when TCU homepage loads!</div>
                 <div class="img-container">
-                    <img src="image7.png" alt="[Image 7]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">📸 Connected Dashboard Screenshot</div>
+                    <img src="image7.png" alt="Connected Dashboard">
                 </div>
             </div>
 
             <div class="speedtest-box-white">
-                <p>📢 Check speed connection via <a class="web-link-teal" href="https://www.speedtest.net/zh-Hant" target="_blank">Speedtest Website</a>.</p>
+                <p>📢 Check speed connection via <a class="web-link-teal" href="https://www.speedtest.net/" target="_blank">Speedtest Website</a>.</p>
             </div>
 
-            <center><button class="back-home-btn" onclick="goHome()">返回上方 / Back to Top</button></center>
+            <center><button class="back-home-btn" onclick="goHome()">Back to Top</button></center>
         </div>
 
     </div>
@@ -609,7 +492,7 @@
     <footer class="tcu-footer-white">
         <div class="footer-container">
             <div class="footer-info">
-                <p style="font-size: 19px; font-weight: 800; color: var(--primary); margin-bottom: 12px;">慈濟大學 Tzu Chi University</p>
+                <p style="font-size: 19px; font-weight: 800; color: #008080; margin-bottom: 12px;">慈濟大學 Tzu Chi University</p>
                 <p>中央校區：花蓮市中央路三段701號</p> 
                 <p>介仁校區：花蓮市介仁街67號</p> 
                 <p>建國校區：花蓮市建國路2段880號</p>
@@ -644,13 +527,13 @@
             document.documentElement.setAttribute("data-theme", "dark");
             document.getElementById("theme-icon-moon").classList.add("lang-content-hidden");
             document.getElementById("theme-icon-sun").classList.remove("lang-content-hidden");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
         }
 
         function switchLanguage(lang) {
             const zhContent = document.getElementById('zh-content');
             const enContent = document.getElementById('en-content');
-            const btnZh = document.getElementById('btn-nav-zh');
-            const btnEn = document.getElementById('btn-nav-en');
             const guideSection = document.getElementById('guide-section');
 
             guideSection.style.display = 'block';
@@ -658,21 +541,21 @@
             if (lang === 'zh') {
                 zhContent.classList.remove('lang-content-hidden');
                 enContent.classList.add('lang-content-hidden');
-                btnZh.classList.add('active');
-                btnEn.classList.remove('active');
             } else {
                 enContent.classList.remove('lang-content-hidden');
                 zhContent.classList.add('lang-content-hidden');
-                btnEn.classList.add('active');
-                btnZh.classList.remove('active');
             }
             
-            // Scroll otomatis menuju panduan secara mulus
-            guideSection.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                guideSection.scrollIntoView({ behavior: 'smooth' });
+            }, 50);
         }
 
         function goHome() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+                document.getElementById('guide-section').style.display = 'none';
+            }, 600);
         }
     </script>
 </body>
