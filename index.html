@@ -4,17 +4,374 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>慈濟大學校園無線網路連線指南 | TCU Wi-Fi Connection Guide</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #00796b;
+            --primary-dark: #004d40;
+            --primary-light: #e0f2f1;
+            --accent: #26a69a;
+            --text-main: #2c3e50;
+            --text-muted: #607d8b;
+            --bg-global: #f8fafc;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: all 0.25s ease;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-global);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .lang-content-hidden {
+            display: none !important;
+        }
+
+        /* Modern Header with Sticky Glassmorphism Effect */
+        .tcu-top-bar {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 121, 107, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .tcu-top-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .logo-wrapper img {
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .top-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn-white {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 18px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 30px;
+            font-size: 14px;
+        }
+
+        .nav-btn-white:hover {
+            background-color: var(--primary-light);
+        }
+
+        .nav-btn-white.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 121, 107, 0.2);
+        }
+
+        /* Main Layout Customization */
+        .main-container {
+            max-width: 1200px;
+            width: 90%;
+            margin: 50px auto;
+        }
+
+        .page-title-box {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .page-title-box h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .title-divider {
+            height: 4px;
+            width: 80px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        .page-title-box p {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        /* Language Portal Selector */
+        .selector-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .selector-instruction {
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .selector-buttons {
+            display: flex;
+            gap: 16px;
+        }
+
+        .portal-btn {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 15px;
+            border: 1px solid var(--primary);
+        }
+
+        .teal-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .teal-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 121, 107, 0.3);
+        }
+
+        .white-btn {
+            background: white;
+            color: var(--primary);
+        }
+
+        .white-btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        /* Modern Step Guides Card Layout */
+        .guide-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .lang-header {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+        
+        .zh-teal-text { color: var(--primary); }
+        .en-teal-text { color: var(--accent); }
+
+        .step-item {
+            padding: 35px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .step-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .step-label {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .step-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .step-subtext {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* Modern Alert Box */
+        .alert-box {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 18px;
+            margin: 20px 0;
+            border-radius: 8px;
+            color: #78350f;
+            font-size: 15px;
+        }
+
+        .alert-box-teal {
+            background: #f0fdfa;
+            border-left: 4px solid var(--accent);
+            color: #115e59;
+        }
+
+        /* Sleek Container for Screenshots */
+        .img-container {
+            background: #f8fafc;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        .img-placeholder {
+            color: #94a3b8;
+            font-style: normal;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Modern Speedtest & Dashboard components */
+        .speedtest-box-white {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 40px 0 20px 0;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .web-link-teal {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+        }
+
+        .web-link-teal:hover {
+            border-bottom-color: var(--primary);
+        }
+
+        .back-home-wrapper {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .back-home-btn {
+            background: #1e293b;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2);
+        }
+
+        .back-home-btn:hover {
+            background: #0f172a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 41, 59, 0.3);
+        }
+
+        /* Minimal Footer Layout */
+        .tcu-footer-white {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 50px 20px;
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-info p {
+            margin-bottom: 6px;
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            border-top: 1px solid #f1f5f9;
+            width: 100%;
+            padding-top: 20px;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 640px) {
+            .selector-buttons {
+                flex-direction: column;
+            }
+            .page-title-box h2 {
+                font-size: 24px;
+            }
+            .guide-card {
+                padding: 24px;
+            }
+            .step-text {
+                font-size: 17px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-    <div class="bg-color-photo-overlay"></div>
 
     <header class="tcu-top-bar">
         <div class="tcu-top-container">
             <a href="https://www.tcu.edu.tw" target="_blank" class="logo-wrapper">
                 <img src="tculogo.png" alt="TCU Official Logo" class="tcu-logo-photo" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                <div class="logo-photo-placeholder lang-content-hidden">[TCU Photo Logo]</div>
+                <div class="logo-photo-placeholder lang-content-hidden" style="color: var(--primary); font-weight: bold;">[TCU Logo]</div>
             </a>
             
             <div class="top-links">
@@ -27,7 +384,7 @@
     <div class="main-container">
         
         <div class="page-title-box">
-            <h2>校園無線網路連線指南 | Wi-Fi Setup Guide</h2>
+            <h2>校園無線網路連線指南 / Wi-Fi Setup Guide</h2>
             <div class="title-divider"></div>
             <p>請選擇您的語言以開始觀看連線步驟 / Please select your language to view the guide.</p>
         </div>
@@ -48,7 +405,7 @@
                 <div class="step-text">登入慈濟大學 「學生資訊系統」，並點選 「電算中心」</div>
                 <div class="img-container">
                     <img src="image1.png" alt="[Image 1]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 1] 點選「電算中心」截圖</div>
+                    <div class="img-placeholder">📸 點選「電算中心」截圖</div>
                 </div>
             </div>
 
@@ -57,7 +414,7 @@
                 <div class="step-text">點選 「WiFi & VPN 密碼管理」</div>
                 <div class="img-container">
                     <img src="image2.png" alt="[Image 2]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 2] 點選「WiFi & VPN 密碼管理」截圖</div>
+                    <div class="img-placeholder">📸 點選「WiFi & VPN 密碼管理」截圖</div>
                 </div>
             </div>
 
@@ -69,7 +426,7 @@
                 </div>
                 <div class="img-container">
                     <img src="image3.png" alt="[Image 3]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 3] 記下帳密資訊截圖</div>
+                    <div class="img-placeholder">📸 記下帳密資訊截圖</div>
                 </div>
             </div>
 
@@ -78,7 +435,7 @@
                 <div class="step-text">開啟裝置的 Wi-Fi 設定，選擇 「TCU」</div>
                 <div class="img-container">
                     <img src="image4.png" alt="[Image 4]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 4] 選擇「TCU」網路截圖</div>
+                    <div class="img-placeholder">📸 選擇「TCU」網路截圖</div>
                 </div>
             </div>
 
@@ -88,7 +445,7 @@
                 <p class="step-subtext">通常連線後會直接彈出登入視窗，此時可直接輸入您的帳號（不含 @ 後方文字）與密碼，並點擊 「登入」。</p>
                 <div class="img-container">
                     <img src="image5.png" alt="[Image 5]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 5] 彈出視窗登入認證截圖</div>
+                    <div class="img-placeholder">📸 彈出視窗登入認證截圖</div>
                 </div>
             </div>
 
@@ -98,7 +455,7 @@
                 <p class="step-subtext">則必須點選 「開啟瀏覽器並連線」（或自行打開瀏覽器任意網頁），以帶出認證頁面。</p>
                 <div class="img-container">
                     <img src="image6.png" alt="[Image 6]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 6] 手動開啟瀏覽器認證截圖</div>
+                    <div class="img-placeholder">📸 手動開啟瀏覽器認證截圖</div>
                 </div>
             </div>
 
@@ -107,7 +464,7 @@
                 <div class="step-text">當網頁自動跳轉並顯示 「慈濟大學首頁」 時，即代表已成功連線！</div>
                 <div class="img-container">
                     <img src="image7.png" alt="[Image 7]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 7] 連線成功畫面截圖</div>
+                    <div class="img-placeholder">📸 連線成功畫面截圖</div>
                 </div>
             </div>
 
@@ -117,7 +474,7 @@
 
             <div class="back-home-wrapper">
                 <button class="back-home-btn" onclick="goHome()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     返回首頁 / Back to Home
                 </button>
             </div>
@@ -131,7 +488,7 @@
                 <div class="step-text">Log in to the TCU Student Information System and Go to "Computer Center"</div>
                 <div class="img-container">
                     <img src="imageing1.png" alt="[Image 1]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 1] Click "Computer Center" Screenshot</div>
+                    <div class="img-placeholder">📸 Click "Computer Center" Screenshot</div>
                 </div>
             </div>
 
@@ -140,7 +497,7 @@
                 <div class="step-text">Go to "WiFi & VPN Password Management"</div>
                 <div class="img-container">
                     <img src="imageing2.png" alt="[Image 2]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 2] Click "WiFi & VPN Password Management" Screenshot</div>
+                    <div class="img-placeholder">📸 Click "WiFi & VPN Password Management" Screenshot</div>
                 </div>
             </div>
 
@@ -152,7 +509,7 @@
                 </div>
                 <div class="img-container">
                     <img src="image3.png" alt="[Image 3]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 3] Save your credentials Screenshot</div>
+                    <div class="img-placeholder">📸 Save your credentials Screenshot</div>
                 </div>
             </div>
 
@@ -161,7 +518,7 @@
                 <div class="step-text">Connect to the "TCU" Wi-Fi network</div>
                 <div class="img-container">
                     <img src="image4.png" alt="[Image 4]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 4] Select "TCU" from Wi-Fi list Screenshot</div>
+                    <div class="img-placeholder">📸 Select "TCU" from Wi-Fi list Screenshot</div>
                 </div>
             </div>
 
@@ -171,7 +528,7 @@
                 <p class="step-subtext">If it does, you can directly enter your username (without @...) and password, then click <strong>Login</strong>.</p>
                 <div class="img-container">
                     <img src="image5.png" alt="[Image 5]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 5] Login screen authentication Screenshot</div>
+                    <div class="img-placeholder">📸 Login screen authentication Screenshot</div>
                 </div>
             </div>
 
@@ -181,7 +538,7 @@
                 <p class="step-subtext">Please click "Open browser and connect" (or manually open any browser) to bring up the authentication page.</p>
                 <div class="img-container">
                     <img src="image6.png" alt="[Image 6]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 6] Manually open browser portal Screenshot</div>
+                    <div class="img-placeholder">📸 Manually open browser portal Screenshot</div>
                 </div>
             </div>
 
@@ -190,17 +547,17 @@
                 <div class="step-text">Once the Tzu Chi University homepage opens, you are successfully connected!</div>
                 <div class="img-container">
                     <img src="image7.png" alt="[Image 7]" onerror="this.nextElementSibling.style.display='block'; this.style.display='none';">
-                    <div class="img-placeholder">[Image 7] Successfully Connected Dashboard Screenshot</div>
+                    <div class="img-placeholder">📸 Successfully Connected Dashboard Screenshot</div>
                 </div>
             </div>
 
-            <div class="speedtest-box-white speedtest-box-teal">
+            <div class="speedtest-box-white text-center">
                 <p>📢 To verify your connection speed, you can visit the <a class="web-link-teal" href="https://www.speedtest.net/zh-Hant" target="_blank">Speedtest Website</a> and click <strong>"GO"</strong> to test.</p>
             </div>
 
             <div class="back-home-wrapper">
                 <button class="back-home-btn" onclick="goHome()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     Back to Home
                 </button>
             </div>
@@ -211,12 +568,12 @@
     <footer class="tcu-footer-white">
         <div class="footer-container">
             <div class="footer-info">
-               <p><strong>慈濟大學 Tzu Chi University</strong></p>
+                <p style="font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 10px;">慈濟大學 Tzu Chi University</p>
                 <p>電話：03-8565301</p>
-                <p>中央校區：花蓮市中央路三段701號 
+                <p>中央校區：花蓮市中央路三段701號</p> 
                 <p>介仁校區：花蓮市介仁街67號</p> 
                 <p>建國校區：花蓮市建國路2段880號</p>
-                <br>電算中心聯絡信箱：feedback@mail.tcu.edu.tw</br>
+                <p style="margin-top: 15px; color: var(--primary); font-weight: 600;">電算中心聯絡信箱：feedback@mail.tcu.edu.tw</p>
             </div>
             <div class="footer-copy">
                 <p>&copy; 2026 慈濟大學 TCU. All Rights Reserved.</p>
@@ -232,7 +589,6 @@
             const btnEn = document.getElementById('btn-nav-en');
             const selectorPanel = document.getElementById('language-selector-panel');
 
-            // Sembunyikan panel opsi utama di tengah
             if(selectorPanel) {
                 selectorPanel.style.display = 'none';
             }
@@ -249,14 +605,12 @@
                 btnZh.classList.remove('active');
             }
             
-            // Scroll halus ke arah isi konten
             window.scrollTo({
                 top: document.querySelector('.page-title-box').offsetHeight + 40,
                 behavior: 'smooth'
             });
         }
 
-        // Fungsi untuk kembali ke halaman utama (Home)
         function goHome() {
             const zhContent = document.getElementById('zh-content');
             const enContent = document.getElementById('en-content');
@@ -264,20 +618,16 @@
             const btnEn = document.getElementById('btn-nav-en');
             const selectorPanel = document.getElementById('language-selector-panel');
 
-            // Sembunyikan konten bahasa
             zhContent.classList.add('lang-content-hidden');
             enContent.classList.add('lang-content-hidden');
             
-            // Normalkan status tombol aktif
             btnZh.classList.remove('active');
             btnEn.classList.remove('active');
 
-            // Tampilkan kembali panel pilihan bahasa utama di tengah
             if(selectorPanel) {
                 selectorPanel.style.display = 'block';
             }
 
-            // Scroll kembali paling atas
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
