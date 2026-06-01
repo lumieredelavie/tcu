@@ -201,7 +201,6 @@
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* PERBAIKAN: Kedua tombol disamakan menggunakan gaya Glass Effect premium */
         .glass-btn {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
@@ -216,6 +215,63 @@
             border-color: rgba(255, 255, 255, 0.6);
             transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ─── STYLE BARU: QUICK STEP FINDER ─── */
+        .step-finder-container {
+            background: var(--primary-light);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .step-finder-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        [data-theme="dark"] .step-finder-title {
+            color: var(--primary);
+        }
+
+        .step-finder-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .finder-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+
+        .finder-btn:hover {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            transform: scale(1.1);
         }
 
         /* MAIN CONTAINER */
@@ -246,6 +302,7 @@
         .step-item {
             padding: 40px 0;
             border-bottom: 1px solid var(--border-color);
+            scroll-margin-top: 110px; /* Jarak aman di atas langkah saat di-scroll otomatis agar tidak tertutup header */
         }
 
         .step-item:last-of-type { border-bottom: none; }
@@ -313,6 +370,7 @@
             .img-container.portrait-mode img { max-width: 100%; } 
             .step-label { padding: 8px 18px; font-size: 13px; }
             .hero-section { background-attachment: scroll; } 
+            .step-finder-container { flex-direction: column; align-items: flex-start; gap: 10px; }
         }
     </style>
 </head>
@@ -349,7 +407,22 @@
         <div id="zh-content" class="guide-card lang-content-hidden">
             <div class="lang-header" style="color: #008080;">中文版</div>
             
-            <div class="step-item">
+            <div class="step-finder-container">
+                <div class="step-finder-title">
+                    🔍 ⚡ 快速跳轉步驟 (Quick Step Finder):
+                </div>
+                <div class="step-finder-buttons">
+                    <button class="finder-btn" onclick="scrollToStep('zh-step1')">1</button>
+                    <button class="finder-btn" onclick="scrollToStep('zh-step2')">2</button>
+                    <button class="finder-btn" onclick="scrollToStep('zh-step3')">3</button>
+                    <button class="finder-btn" onclick="scrollToStep('zh-step4')">4</button>
+                    <button class="finder-btn" onclick="scrollToStep('zh-step5')">5</button>
+                    <button class="finder-btn" onclick="scrollToStep('zh-step6')">6</button>
+                    <button class="finder-btn" onclick="scrollToStep('zh-step7')">7</button>
+                </div>
+            </div>
+            
+            <div class="step-item" id="zh-step1">
                 <span class="step-label">STEP 01</span>
                 <div class="step-text">登入慈濟大學 「學生資訊系統」，並點選 「電算中心」</div>
                 <div class="img-container">
@@ -357,7 +430,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="zh-step2">
                 <span class="step-label">STEP 02</span>
                 <div class="step-text">點選 「WiFi & VPN 密碼管理」</div>
                 <div class="img-container">
@@ -365,7 +438,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="zh-step3">
                 <span class="step-label">STEP 03</span>
                 <div class="step-text">記下您的 帳號 與 密碼</div>
                 <div class="alert-box">
@@ -376,7 +449,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="zh-step4">
                 <span class="step-label">STEP 04</span>
                 <div class="step-text">開啟裝置的 Wi-Fi 設定，選擇 「TCU」</div>
                 <div class="img-container portrait-mode">
@@ -384,7 +457,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="zh-step5">
                 <span class="step-label">STEP 05</span>
                 <div class="step-text">輸入帳密並點擊 「登入」</div>
                 <p class="step-subtext">通常系統會自動彈出入口網站驗證視窗以供輸入憑證。</p>
@@ -393,7 +466,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="zh-step6">
                 <span class="step-label">STEP 06</span>
                 <div class="step-text">如果沒有自動彈出驗證視窗：</div>
                 <p class="step-subtext">請點選「開啟瀏覽器並連線」以手動觸發網路登入控制面板網頁。</p>
@@ -402,7 +475,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="zh-step7">
                 <span class="step-label">STEP 07</span>
                 <div class="step-text">當網頁自動跳轉並顯示 「慈濟大學首頁」 時，即代表已成功連線！</div>
                 <div class="img-container">
@@ -420,7 +493,22 @@
         <div id="en-content" class="guide-card lang-content-hidden">
             <div class="lang-header" style="color: #008080;">English Version</div>
             
-            <div class="step-item">
+            <div class="step-finder-container">
+                <div class="step-finder-title">
+                    🔍 ⚡ Quick Step Finder:
+                </div>
+                <div class="step-finder-buttons">
+                    <button class="finder-btn" onclick="scrollToStep('en-step1')">1</button>
+                    <button class="finder-btn" onclick="scrollToStep('en-step2')">2</button>
+                    <button class="finder-btn" onclick="scrollToStep('en-step3')">3</button>
+                    <button class="finder-btn" onclick="scrollToStep('en-step4')">4</button>
+                    <button class="finder-btn" onclick="scrollToStep('en-step5')">5</button>
+                    <button class="finder-btn" onclick="scrollToStep('en-step6')">6</button>
+                    <button class="finder-btn" onclick="scrollToStep('en-step7')">7</button>
+                </div>
+            </div>
+            
+            <div class="step-item" id="en-step1">
                 <span class="step-label">STEP 01</span>
                 <div class="step-text">Log in to TCU Student Information System and Go to "Computer Center"</div>
                 <div class="img-container">
@@ -428,7 +516,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="en-step2">
                 <span class="step-label">STEP 02</span>
                 <div class="step-text">Go to "WiFi & VPN Password Management"</div>
                 <div class="img-container">
@@ -436,7 +524,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="en-step3">
                 <span class="step-label">STEP 03</span>
                 <div class="step-text">Note down your Account and Password</div>
                 <div class="alert-box">
@@ -447,7 +535,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="en-step4">
                 <span class="step-label">STEP 04</span>
                 <div class="step-text">Connect to "TCU" Wi-Fi network</div>
                 <div class="img-container portrait-mode">
@@ -455,7 +543,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="en-step5">
                 <span class="step-label">STEP 05</span>
                 <div class="step-text">Enter username & password on pop-up screen</div>
                 <div class="img-container">
@@ -463,7 +551,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="en-step6">
                 <span class="step-label">STEP 06</span>
                 <div class="step-text">If pop-up does not appear:</div>
                 <p class="step-subtext">Click "Open browser and connect" to trigger page portal.</p>
@@ -472,7 +560,7 @@
                 </div>
             </div>
 
-            <div class="step-item">
+            <div class="step-item" id="en-step7">
                 <span class="step-label">STEP 07</span>
                 <div class="step-text">Connection Successful when TCU homepage loads!</div>
                 <div class="img-container">
@@ -549,6 +637,14 @@
             setTimeout(() => {
                 guideSection.scrollIntoView({ behavior: 'smooth' });
             }, 50);
+        }
+
+        /* FUNGSI UTAMA BARU: UNTUK LOGIKA SCROLL OTOMATIS KE ID STEP */
+        function scrollToStep(stepId) {
+            const element = document.getElementById(stepId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         function goHome() {
