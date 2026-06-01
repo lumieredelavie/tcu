@@ -139,13 +139,13 @@
         .hero-content { 
             width: 100%;
             max-width: 800px; 
-            animation: fadeInHero 0.8s ease-out;
+            animation: fadeInHero 1s cubic-bezier(0.16, 1, 0.3, 1);
             z-index: 2;
         }
 
         @keyframes fadeInHero {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(30px); filter: blur(4px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
         .hero-title {
@@ -198,26 +198,35 @@
             cursor: pointer;
             font-weight: 700;
             font-size: 16px;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* PREMIUM GLASS EFFECT + PULSE ANIMATION */
         .glass-btn {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            animation: pulseGlow 3s infinite;
         }
 
         .glass-btn:hover {
             background: rgba(255, 255, 255, 0.25);
             border-color: rgba(255, 255, 255, 0.6);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            animation: none;
         }
 
-        /* ─── STYLE BARU: QUICK STEP FINDER ─── */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), 0 0 0 12px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* QUICK STEP FINDER */
         .step-finder-container {
             background: var(--primary-light);
             border: 1px solid var(--border-color);
@@ -264,14 +273,14 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .finder-btn:hover {
             background: var(--primary);
             color: #ffffff;
             border-color: var(--primary);
-            transform: scale(1.1);
+            transform: scale(1.18);
         }
 
         /* MAIN CONTAINER */
@@ -299,10 +308,26 @@
             border-bottom: 2px solid var(--border-color);
         }
 
+        /* ─── ANIMASI BARU: SCROLL-DRIVEN FADE-IN ─── */
         .step-item {
             padding: 40px 0;
             border-bottom: 1px solid var(--border-color);
-            scroll-margin-top: 110px; /* Jarak aman di atas langkah saat di-scroll otomatis agar tidak tertutup header */
+            scroll-margin-top: 110px;
+            
+            /* Kondisi Awal Animasi */
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(2px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.8s ease;
+        }
+
+        /* Saat Masuk Layar (Dipicu JS Kelas 'visible') */
+        .step-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
         }
 
         .step-item:last-of-type { border-bottom: none; }
@@ -322,8 +347,18 @@
 
         .step-text { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
         .step-subtext { color: var(--text-muted); font-size: 15px; margin-bottom: 18px; }
-        .alert-box { background: var(--alert-bg); border-left: 4px solid var(--alert-border); padding: 20px; margin: 25px 0; border-radius: 12px; color: var(--alert-text); font-size: 15px; }
+        
+        .alert-box { 
+            background: var(--alert-bg); 
+            border-left: 4px solid var(--alert-border); 
+            padding: 20px; 
+            margin: 25px 0; 
+            border-radius: 12px; 
+            color: var(--alert-text); 
+            font-size: 15px; 
+        }
 
+        /* IMAGE HOVER EFFECT */
         .img-container {
             width: 100%;
             margin-top: 25px;
@@ -338,6 +373,11 @@
             height: auto;       
             display: block;
             object-fit: contain; 
+            transition: transform 0.5s ease;
+        }
+
+        .img-container:hover img {
+            transform: scale(1.02);
         }
 
         .img-container.portrait-mode img {
@@ -351,7 +391,8 @@
 
         .speedtest-box-white { background: var(--primary-light); border: 1px solid var(--border-color); padding: 24px; margin: 45px 0 25px 0; border-radius: 16px; text-align: center; font-weight: 600; }
         .web-link-teal { color: var(--primary); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--primary); }
-        .back-home-btn { background: var(--text-main); color: var(--bg-global); border: none; padding: 14px 32px; font-size: 15px; font-weight: 700; border-radius: 30px; cursor: pointer; margin-top: 30px; }
+        .back-home-btn { background: var(--text-main); color: var(--bg-global); border: none; padding: 14px 32px; font-size: 15px; font-weight: 700; border-radius: 30px; cursor: pointer; margin-top: 30px; transition: transform 0.2s ease; }
+        .back-home-btn:hover { transform: translateY(-2px); }
 
         /* FOOTER */
         .tcu-footer-white { background: var(--bg-card); backdrop-filter: var(--bg-blur); border-top: 1px solid var(--border-color); padding: 50px 0; font-size: 14px; color: var(--text-muted); }
@@ -634,12 +675,13 @@
                 zhContent.classList.add('lang-content-hidden');
             }
             
+            // Re-trigger animasi deteksi scroll setelah bahasa diganti
             setTimeout(() => {
+                initScrollAnimation();
                 guideSection.scrollIntoView({ behavior: 'smooth' });
             }, 50);
         }
 
-        /* FUNGSI UTAMA BARU: UNTUK LOGIKA SCROLL OTOMATIS KE ID STEP */
         function scrollToStep(stepId) {
             const element = document.getElementById(stepId);
             if (element) {
@@ -653,6 +695,34 @@
                 document.getElementById('guide-section').style.display = 'none';
             }, 600);
         }
+
+        /* ─── FUNGSI JAVASCRIPT BARU: INTERSECTION OBSERVER UNTUK ANIMASI SCROLL ─── */
+        function initScrollAnimation() {
+            const steps = document.querySelectorAll('.step-item');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 // Memulai animasi saat 15% bagian elemen masuk layar
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            steps.forEach(step => {
+                observer.observe(step);
+            });
+        }
+
+        // Jalankan saat dokumen selesai dimuat
+        document.addEventListener("DOMContentLoaded", () => {
+            initScrollAnimation();
+        });
     </script>
 </body>
 </html>
